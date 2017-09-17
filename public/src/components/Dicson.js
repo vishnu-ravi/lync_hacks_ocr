@@ -70,6 +70,7 @@ class Dicson extends Component {
                     </div>
                 </div>
                 <div className="section section2">
+                    <div className="count"><span>100</span><span>100</span></div>
                     <div className="ocrWrp">
                         <ul>
                             <li className="male">

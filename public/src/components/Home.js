@@ -59,6 +59,7 @@ class Home extends Component {
                 var body = JSON.parse(res.data.html);
                 var length = body.length;
                 var loaded = 0;
+                this.props.getTotalDetail(body.length);
                 for(var i in body) {
                     axios.get('/fetch-aadhar-api?id='+body[i].url+'&imageuid='+body[i].imageuid+'&page='+i+'&t='+new Date().getTime()).then((res2) => {
                         loaded++;
@@ -78,6 +79,9 @@ class Home extends Component {
                             data.total = total;
                             data.matched = matched;
                             this.props.addUserDetail(data);
+                            console.log($('.ocrWrp ul li:last-child').offset());
+                            console.log($('.ocrWrp ul li:last-child').offset().bottom);
+                            $('html,body').animate({scrollTop: $('.ocrWrp ul li:last-child').offset().top+300}, 'slow');
                             if(length == loaded) {
                                 this.props.switchLoader();
                             }
@@ -145,7 +149,7 @@ class Home extends Component {
                     <div className="box">
                         <div className="prograss"><i></i></div>
                         <div className="fileUpload">
-                            <h3>Optical Character <br/>Recognition</h3>
+                            <h3>Aadhar <span>Optical Character Recognition</span></h3>
                             {(this.props.home.loading) ? <a className="uploadBtn loaded">
                                 <span><strong>CLICK</strong><span>HERE</span></span>
                                 <em><small></small></em>
@@ -160,11 +164,12 @@ class Home extends Component {
                 : ''}
                 {(this.props.home.aadhar.length > 0) ?
                 <div className="section section2">
+                    <div className="count"><span>{this.props.home.flow}</span><span>{this.props.home.total}</span></div>
                     <div className="ocrWrp">
                         <ul>
                             {this.props.home.aadhar.map((k, v) =>
                                 <li className={this.lower(k.sex)} key={v}>
-                                            <h3><span>{k.name} </span><i></i></h3>
+                                            <h3><span>{k.name}</span><i></i></h3>
                                             <div className="details">
                                                 <div className="dob"><strong>DOB: </strong><span>{k.dob}</span></div>
                                                 <div className="sex"><strong>SEX: </strong><span>{k.sex}</span></div>

@@ -1,7 +1,8 @@
 import {
     ADD_USER_DETAIL,
     SWITCH_LOADER,
-    CLEAR_USER_DETAIL
+    CLEAR_USER_DETAIL,
+    GET_TOTAL_DETAIL
 } from './actionTypes';
 import cookies from 'cookie-jeep';
 import axios from 'axios';
@@ -24,6 +25,15 @@ export function clearUserDetail() {
     return dispatch => {
         dispatch({
             type: CLEAR_USER_DETAIL
+        })
+    };
+}
+
+export function getTotalDetail(total) {
+    return dispatch => {
+        dispatch({
+            type: GET_TOTAL_DETAIL,
+            total: total
         })
     };
 }

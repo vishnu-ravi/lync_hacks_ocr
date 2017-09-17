@@ -110,101 +110,113 @@ function loadFiles() {
         // init with auth
         vision.init({auth: 'AIzaSyDyYWeIdrCNrKWAwhbKN5RtkcOpsq0gpZ0'});
         // construct parameters
-        const request = new vision.Request({
-            image: new vision.Image({
-                url: req.query.id
-            }),
-            features: [
-                    new vision.Feature('FACE_DETECTION', 4),
-                    new vision.Feature('TEXT_DETECTION', 10),
-                ]
-        });
-        // send single request
-        vision.annotate(request).then((response) => {
-            var data = JSON.stringify(aadhar.analyzeText(response.responses));
-            console.log(data);
-            var fs = require('fs');
-            var beautify = require("json-beautify");
-            /*fs.readFile(__dirname+'/aadhar.json', (err, respdata) => {
-                respdata = JSON.parse(respdata);
-                respdata.push(data);
-                fs.writeFile(__dirname+'/aadhar.json', beautify(respdata, null, 2, 100));
-                res.set('content-type', 'text/json');
-                res.send(JSON.stringify({
-                    success:true,
-                    html:data,
-                    page:req.query.page
-                }))
-                res.end();
-                var request = require('request');
-                request.post('https://us-central1-lynkhacksmock.cloudfunctions.net/verifyaadhar', {
-                    teamname : 'Swat Kats',
-                    imageuid : req.body.imageuid,
-                    dob : data.dob,
-                    fathersname : data.fathersname,
-                    sex : data.sex,
-                    uid : data.uid,
-                    state : data.state,
-                    address : data.address,
-                    name : data.name,
-                }, (err, data, body) => {
-                    if(err)
-                        console.log(err);
-                    else {
-                        console.log(body);
-                    }
-                })
-            });*/
-
-            var pdata = JSON.parse(data);
-            console.log({
-                    teamname : 'Swat Kats',
-                    imageuid : req.query.imageuid,
-                    dob : pdata.dob,
-                    fathersname : pdata.fathersname,
-                    sex : pdata.sex,
-                    uid : pdata.uid,
-                    state : pdata.state,
-                    address : pdata.address,
-                    name : pdata.name,
-                });
-            var request_npm = require('request');
-            request_npm.post({ url : 'https://us-central1-lynkhacksmock.cloudfunctions.net/verifyaadhar', form: {
-                    teamname : 'Swat Kats',
-                    imageuid : req.query.imageuid,
-                    dob : pdata.dob,
-                    fathersname : pdata.fathersname,
-                    sex : pdata.sex,
-                    uid : pdata.uid,
-                    state : pdata.state,
-                    address : pdata.address,
-                    name : pdata.name,
-                }}, (err, ldata, body) => {
-                    if(err)
-                        console.log(err);
-                    else {
-                        body_score += parseFloat(body.replace(/score/, '').trim());
-                        console.log('I am the score '+parseFloat(body.replace(/score/, '').trim()));
-
-                    }
+        try {
+            const request = new vision.Request({
+                image: new vision.Image({
+                    url: req.query.id
+                }),
+                features: [
+                        new vision.Feature('FACE_DETECTION', 4),
+                        new vision.Feature('TEXT_DETECTION', 10),
+                    ]
+            });
+            // send single request
+            vision.annotate(request).then((response) => {
+                var data = JSON.stringify(aadhar.analyzeText(response.responses));
+                console.log(data);
+                var fs = require('fs');
+                var beautify = require("json-beautify");
+                /*fs.readFile(__dirname+'/aadhar.json', (err, respdata) => {
+                    respdata = JSON.parse(respdata);
+                    respdata.push(data);
+                    fs.writeFile(__dirname+'/aadhar.json', beautify(respdata, null, 2, 100));
                     res.set('content-type', 'text/json');
                     res.send(JSON.stringify({
                         success:true,
                         html:data,
-                        page:req.query.page,
-                        body_score:body_score
+                        page:req.query.page
                     }))
                     res.end();
-                })
+                    var request = require('request');
+                    request.post('https://us-central1-lynkhacksmock.cloudfunctions.net/verifyaadhar', {
+                        teamname : 'Swat Kats',
+                        imageuid : req.body.imageuid,
+                        dob : data.dob,
+                        fathersname : data.fathersname,
+                        sex : data.sex,
+                        uid : data.uid,
+                        state : data.state,
+                        address : data.address,
+                        name : data.name,
+                    }, (err, data, body) => {
+                        if(err)
+                            console.log(err);
+                        else {
+                            console.log(body);
+                        }
+                    })
+                });*/
+
+                var pdata = JSON.parse(data);
+                console.log({
+                        teamname : 'Swat Kats',
+                        imageuid : req.query.imageuid,
+                        dob : pdata.dob,
+                        fathersname : pdata.fathersname,
+                        sex : pdata.sex,
+                        uid : pdata.uid,
+                        state : pdata.state,
+                        address : pdata.address,
+                        name : pdata.name,
+                    });
+                var request_npm = require('request');
+                request_npm.post({ url : 'https://us-central1-lynkhacksmock.cloudfunctions.net/verifyaadhar', form: {
+                        teamname : 'Swat Kats',
+                        imageuid : req.query.imageuid,
+                        dob : pdata.dob,
+                        fathersname : pdata.fathersname,
+                        sex : pdata.sex,
+                        uid : pdata.uid,
+                        state : pdata.state,
+                        address : pdata.address,
+                        name : pdata.name,
+                    }}, (err, ldata, body) => {
+                        if(err)
+                            console.log(err);
+                        else {
+                            body_score += parseFloat(body.replace(/score/, '').trim());
+                            console.log('I am the score '+parseFloat(body.replace(/score/, '').trim()));
+
+                        }
+                        res.set('content-type', 'text/json');
+                        res.send(JSON.stringify({
+                            success:true,
+                            html:data,
+                            page:req.query.page,
+                            body_score:body_score
+                        }))
+                        res.end();
+                    })
 
 
-        }, (e) => {
+            }, (e) => {
+                res.set('content-type', 'text/json');
+                res.send(JSON.stringify({
+                    success:false,
+                    error : e.message
+                }))
+                res.end();
+            });
+        }
+        catch(e) {
             res.set('content-type', 'text/json');
             res.send(JSON.stringify({
-                success:false
+                success:false,
+                error : 'internet drop'
             }))
             res.end();
-        });
+        }
+
     });
     app.get('/get-lynk-addhar-api',(req, res, next) => {
         const request_npm = require('request');
