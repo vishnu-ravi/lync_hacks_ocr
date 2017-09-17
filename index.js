@@ -203,7 +203,7 @@ function loadFiles() {
                 res.set('content-type', 'text/json');
                 res.send(JSON.stringify({
                     success:false,
-                    error : 'google vision issue'
+                    error : e.message
                 }))
                 res.end();
             });
