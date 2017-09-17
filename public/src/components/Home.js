@@ -61,7 +61,7 @@ class Home extends Component {
                 var loaded = 0;
                 this.props.getTotalDetail(body.length);
                 for(var i in body) {
-                    axios.get('/fetch-aadhar-api?id='+body[i].url+'&imageuid='+body[i].imageuid+'&page='+i+'&t='+new Date().getTime()).then((res2) => {
+                    axios.get('/fetch-aadhar-api?id='+encodeURIComponent(body[i].url)+'&imageuid='+body[i].imageuid+'&page='+i+'&t='+new Date().getTime()).then((res2) => {
                         loaded++;
                         if(res2.data.success) {
                             var ogData = body[res2.data.page];
