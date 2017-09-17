@@ -59,6 +59,7 @@ class Home extends Component {
                 var body = JSON.parse(res.data.html);
                 var length = body.length;
                 var loaded = 0;
+                this.props.getTotalDetail(body.length);
                 for(var i in body) {
                     axios.get('/fetch-aadhar-api?id='+body[i].url+'&imageuid='+body[i].imageuid+'&page='+i+'&t='+new Date().getTime()).then((res2) => {
                         loaded++;
@@ -163,6 +164,7 @@ class Home extends Component {
                 : ''}
                 {(this.props.home.aadhar.length > 0) ?
                 <div className="section section2">
+                    <div className="count"><span>{this.props.home.flow}</span> / <span>{this.props.home.total}</span></div>
                     <div className="ocrWrp">
                         <ul>
                             {this.props.home.aadhar.map((k, v) =>
