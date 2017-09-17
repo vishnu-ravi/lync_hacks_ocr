@@ -170,7 +170,7 @@ function loadFiles() {
                         name : pdata.name,
                     });
                 var request_npm = require('request');
-                request_npm.post({ url : 'https://us-central1-lynkhacksmock.cloudfunctions.net/verifyaadhar', form: {
+                request_npm.post({ url : 'https://us-central1-aadharverify-db60a.cloudfunctions.net/verifyaadhar', form: {
                         teamname : 'Swat Kats',
                         imageuid : req.query.imageuid,
                         dob : pdata.dob,
@@ -220,7 +220,7 @@ function loadFiles() {
     });
     app.get('/get-lynk-addhar-api',(req, res, next) => {
         const request_npm = require('request');
-        request_npm.get('https://us-central1-lynkhacksmock.cloudfunctions.net/aadharimages', (error, results, body) => {
+        request_npm.get('https://us-central1-aadharverify-db60a.cloudfunctions.net/aadharimages', (error, results, body) => {
             if(error) {
                 res.set('content-type', 'text/json');
                 res.send(JSON.stringify({
