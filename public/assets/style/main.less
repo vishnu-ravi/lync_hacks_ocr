@@ -76,6 +76,7 @@ body {
             margin: 0 auto 18px;
             font-size: 42px;
             display: block;
+            backface-visibility: hidden;
         }
     }
 }
@@ -198,10 +199,14 @@ header {
     background: rgba(255, 255, 255, 0.7);
     h3 {
         font-size: 23px;
-        text-transform: uppercase;
         color: #444;
         font-size: 27px;
         margin-bottom: 25px;
+        span {
+            display: block;
+            font-size: 0.65em;
+            font-weight: 400;
+        }
     }
     p {
         font-size: 15px;

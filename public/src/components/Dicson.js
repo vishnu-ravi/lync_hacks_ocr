@@ -60,7 +60,7 @@ class Dicson extends Component {
                     <div className="box">
                         <div className="prograss"><i></i></div>
                         <div className="fileUpload">
-                            <h3>Optical Character <br/>Recognition</h3>
+                            <h3>Aadhar <span>Optical Character Recognition</span></h3>
                             <a className="uploadBtn loaded">
                                 <span><strong>CLICK</strong><span>HERE</span></span>
                                 <em><small></small></em>
