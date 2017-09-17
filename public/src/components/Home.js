@@ -164,12 +164,12 @@ class Home extends Component {
                 : ''}
                 {(this.props.home.aadhar.length > 0) ?
                 <div className="section section2">
-                    <div className="count"><span>{this.props.home.flow}</span> / <span>{this.props.home.total}</span></div>
+                    <div className="count"><span>{this.props.home.flow}</span><span>{this.props.home.total}</span></div>
                     <div className="ocrWrp">
                         <ul>
                             {this.props.home.aadhar.map((k, v) =>
                                 <li className={this.lower(k.sex)} key={v}>
-                                            <h3><span>{k.name} </span><i></i></h3>
+                                            <h3><span>{k.name}</span><i></i></h3>
                                             <div className="details">
                                                 <div className="dob"><strong>DOB: </strong><span>{k.dob}</span></div>
                                                 <div className="sex"><strong>SEX: </strong><span>{k.sex}</span></div>
