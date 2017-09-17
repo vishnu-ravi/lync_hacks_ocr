@@ -340,6 +340,10 @@ Handler.analyzeText = function(res)
                 }
             }
         }
+
+        address = address.replace(/typ 1800 \d{3} \d{4}/, '');
+        address = address.replace(/1800 \d{3} \d{4}/, '');
+
         data['address'] = address;
         if(typeof state != 'undefined') {
             data['state'] = states[state];
