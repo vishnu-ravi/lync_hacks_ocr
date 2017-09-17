@@ -93,41 +93,298 @@ Handler.analyzeText = function(res)
         if(typeof data['dob'] == 'undefined' && match != null && typeof match[1] != 'undefined' && this.validateDOB(match[1])) {
             data['dob'] = match[1];
         }
+        pattern = /father\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+        }
+
         pattern = /father\s*(.+?)\n/i;
         match = pattern.exec(text);
         if(match != null && typeof match[1] != 'undefined') {
-            data['fathersname'] = match[1].replace(/\./g, '').trim();
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
         }
+
+        pattern = /SIO\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            var str = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(str.length > 2) {
+                pattern = /S\/O(.*)/i;
+                var sub_match = pattern.exec(str);
+
+                if(sub_match != null && typeof sub_match[1] != 'undefined') {
+                    data['fathersname'] = sub_match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+                }
+                else {
+                    data['fathersname'] = str
+                }
+
+
+                if(typeof data['sex'] == 'undefined') {
+                    data['sex'] = 'Male';
+                }
+            }
+        }
+
+        pattern = /SIO\s*(.+?)\n/i;
+        match = pattern.exec(text);
+
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            var str = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            if(str.length > 2) {
+                pattern = /S\/O(.*)/i;
+                var sub_match = pattern.exec(str);
+
+                if(sub_match != null && typeof sub_match[1] != 'undefined') {
+                    data['fathersname'] = sub_match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+                }
+                else {
+                    data['fathersname'] = str;
+                }
+
+
+                if(typeof data['sex'] == 'undefined') {
+                    data['sex'] = 'Male';
+                }
+            }
+        }
+
         pattern = /S\/O\s*(.+?),/i;
         match = pattern.exec(text);
         if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
-            data['fathersname'] = match[1].replace(/\./g, '').trim();
-        }
-        pattern = /S\/O:\s*(.+?),/i;
-        match = pattern.exec(text);
-        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
-            data['fathersname'] = match[1].replace(/\./g, '').trim();
-        }
-        pattern = /S\/O :\s*(.+?),/i;
-        match = pattern.exec(text);
-        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
-            data['fathersname'] = match[1].replace(/\./g, '').trim();
-        }
-        pattern = /S\/O:\s*(.+?)\n/i;
-        match = pattern.exec(text);
-        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
-            data['fathersname'] = match[1].replace(/\./g, '').trim();
-        }
-        pattern = /S\/O :\s*(.+?)\n/i;
-        match = pattern.exec(text);
-        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
-            data['fathersname'] = match[1].replace(/\./g, '').trim();
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(typeof data['sex'] == 'undefined') {
+                data['sex'] = 'Male';
+            }
         }
         pattern = /S\/O\s*(.+?)\n/i;
         match = pattern.exec(text);
         if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
-            data['fathersname'] = match[1].replace(/\./g, '').trim();
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(typeof data['sex'] == 'undefined') {
+                data['sex'] = 'Male';
+            }
         }
+        pattern = /S\/O:\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(typeof data['sex'] == 'undefined') {
+                data['sex'] = 'Male';
+            }
+        }
+        pattern = /S\/O :\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(typeof data['sex'] == 'undefined') {
+                data['sex'] = 'Male';
+            }
+        }
+        pattern = /S\/O:\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(typeof data['sex'] == 'undefined') {
+                data['sex'] = 'Male';
+            }
+        }
+        pattern = /S\/O :\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(typeof data['sex'] == 'undefined') {
+                data['sex'] = 'Male';
+            }
+        }
+        pattern = /S\/O\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(typeof data['sex'] == 'undefined') {
+                data['sex'] = 'Male';
+            }
+        }
+
+        pattern = /DIO\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            var str = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(str.length > 2) {
+                pattern = /D\/O(.*)/i;
+                var sub_match = pattern.exec(str);
+
+                if(sub_match != null && typeof sub_match[1] != 'undefined') {
+                    data['fathersname'] = sub_match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+                }
+                else {
+                    data['fathersname'] = str;
+                }
+
+
+                if(typeof data['sex'] == 'undefined') {
+                    data['sex'] = 'Female';
+                }
+            }
+        }
+
+        pattern = /DIO\s*(.+?)\n/i;
+        match = pattern.exec(text);
+
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            var str = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(str.length > 2) {
+                pattern = /D\/O(.*)/i;
+                var sub_match = pattern.exec(str);
+
+                if(sub_match != null && typeof sub_match[1] != 'undefined') {
+                    data['fathersname'] = sub_match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+                }
+                else {
+                    data['fathersname'] = str;
+                }
+
+
+                if(typeof data['sex'] == 'undefined') {
+                    data['sex'] = 'Female';
+                }
+            }
+        }
+
+        pattern = /D\/O\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(typeof data['sex'] == 'undefined') {
+                data['sex'] = 'Female';
+            }
+        }
+        pattern = /D\/O:\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+        pattern = /D\/O :\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+        pattern = /D\/O:\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+        pattern = /D\/O :\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+        pattern = /D\/O\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+
+        pattern = /WIO\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+
+        pattern = /WIO\s*(.+?)\n/i;
+        match = pattern.exec(text);
+
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            var str = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(str.length > 2) {
+                pattern = /D\/O(.*)/i;
+                var sub_match = pattern.exec(str);
+
+                if(sub_match != null && typeof sub_match[1] != 'undefined') {
+                    data['fathersname'] = sub_match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+                }
+                else {
+                    data['fathersname'] = str;
+                }
+
+
+                if(typeof data['sex'] == 'undefined') {
+                    data['sex'] = 'Female';
+                }
+            }
+        }
+
+        pattern = /W\/O\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            var str = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+
+            if(str.length > 2) {
+                pattern = /D\/O(.*)/i;
+                var sub_match = pattern.exec(str);
+
+                if(sub_match != null && typeof sub_match[1] != 'undefined') {
+                    data['fathersname'] = sub_match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+                }
+                else {
+                    data['fathersname'] = str;
+                }
+
+
+                if(typeof data['sex'] == 'undefined') {
+                    data['sex'] = 'Female';
+                }
+            }
+        }
+        pattern = /W\/O:\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+        }
+        pattern = /W\/O :\s*(.+?),/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+        pattern = /W\/O:\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+        pattern = /W\/O :\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+        pattern = /W\/O\s*(.+?)\n/i;
+        match = pattern.exec(text);
+        if(typeof data['fathersname'] == 'undefined' && match != null && typeof match[1] != 'undefined') {
+            data['fathersname'] = match[1].replace(/\./g, '').replace(/[a-z]*\d+[a-z]*/gi, '').trim();
+            data['sex'] = 'Female';
+        }
+
         var splited_string = text.split(/\r?\n/);
         pattern = /\d{4}\s\d{4}\s\d{4}/;
         var for_match;
@@ -182,30 +439,7 @@ Handler.analyzeText = function(res)
             if(for_match != null && for_match[0] != '') {
                 continue;
             }
-            for_match = /india/i.exec(splited_string[i]);
-            if(for_match != null && for_match[0] != '') {
-                continue;
-            }
-            for_match = /gov/i.exec(splited_string[i]);
-            if(for_match != null && for_match[0] != '') {
-                continue;
-            }
-            for_match = /address/i.exec(splited_string[i]);
-            if(for_match != null && for_match[0] != '') {
-                continue;
-            }
-            for_match = /help/i.exec(splited_string[i]);
-            if(for_match != null && for_match[0] != '') {
-                continue;
-            }
-            for_match = /enroll/i.exec(splited_string[i]);
-            if(for_match != null && for_match[0] != '') {
-                continue;
-            }
-            for_match = /aadhaar/i.exec(splited_string[i]);
-            if(for_match != null && for_match[0] != '') {
-                continue;
-            }
+
             for_match = /www\./i.exec(splited_string[i]);
             if(for_match != null && for_match[0] != '') {
                 continue;
@@ -214,11 +448,8 @@ Handler.analyzeText = function(res)
             if(for_match != null && for_match[0] != '') {
                 continue;
             }
-            for_match = /info/i.exec(splited_string[i]);
-            if(for_match != null && for_match[0] != '') {
-                continue;
-            }
-            for_match = /authent/i.exec(splited_string[i]);
+
+            for_match = /your/i.exec(splited_string[i]);
             if(for_match != null && for_match[0] != '') {
                 continue;
             }
@@ -226,7 +457,99 @@ Handler.analyzeText = function(res)
             if(for_match != null && for_match[0] != '') {
                 continue;
             }
-            for_match = /Enrolment|Download|generate|date|valid|nown/i.exec(splited_string[i]);
+            for_match = /authent/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /enroll/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /info/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /aadhaar/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /help/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /address/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /gov/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /CERTIFI/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /india/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /COM/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /expire/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /VEHICLE/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /TRANSPORT/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /enroll/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /Enrolment|Download|generate|date|valid|nown|Authority|write|year/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /Enrolment/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /Download/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /generate/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /date/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /valid/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /nown/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /authority/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /write/i.exec(splited_string[i]);
+            if(for_match != null && for_match[0] != '') {
+                continue;
+            }
+            for_match = /year/i.exec(splited_string[i]);
             if(for_match != null && for_match[0] != '') {
                 continue;
             }
@@ -247,6 +570,7 @@ Handler.analyzeText = function(res)
         }
         for(var i = 0; i < address_string.length; i++) {
             address_string[i] = address_string[i].replace(/S\/O\s/i, '');
+            address_string[i] = address_string[i].replace(/SIO\s/i, '');
             address_string[i] = address_string[i].replace(/father/i, '');
             var regex = new RegExp(data['fathersname'] + ',', 'g');
             address_string[i] = address_string[i].replace(regex, '').trim();
@@ -343,6 +667,9 @@ Handler.analyzeText = function(res)
 
         address = address.replace(/typ 1800 \d{3} \d{4}/, '');
         address = address.replace(/1800 \d{3} \d{4}/, '');
+        address = address.replace(/SIO/i, '');
+        address = address.replace(/S\/O/i, '');
+        address = address.replace(/S\/O:/i, '');
 
         data['address'] = address;
         if(typeof state != 'undefined') {
@@ -350,10 +677,14 @@ Handler.analyzeText = function(res)
         }
         pattern = /\d{6}/;
         match = pattern.exec(address);
+
         if(match != null && typeof match[0] != 'undefined') {
             data['pincode'] = match[0];
         }
 
+        if(typeof data['fathersname'] != 'undefined') {
+            data['fathersname'] = data['fathersname'].replace(':', '').trim();
+        }
     }
     catch(e){
         data =  {
@@ -367,6 +698,11 @@ Handler.analyzeText = function(res)
             pincode : ''
         };
     }
+
+    if(typeof data['sex'] == 'undefined') {
+        data['sex'] = 'Male';
+    }
+
     var ogData =  {
         name : '',
         sex : '',
