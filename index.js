@@ -103,24 +103,7 @@ if (process.env.APP_ENV === 'local' && process.env.NODE_ENV === 'production') {
 
 app.use('/assets/img', express.static(path.resolve(__dirname, 'public/assets/img')));
 app.use('/assets/data', express.static(path.resolve(__dirname, 'public/assets/data')));
-console.log(isLocalDev);
-var body_score = 0;
-if (isLocalDev) { //webpack for local development
-    const webpack = require('webpack'),
-        webpackDevMiddleware = require('webpack-dev-middleware'),
-        webpackHotMiddleware = require('webpack-hot-middleware'),
-        webpack_config = require('./webpack.config.js'),
-        compiler = webpack(webpack_config),
-        indexFile = path.resolve(webpack_config.output.path, 'index.hbs');
-
-        logger.log(webpack_config.output.path);
-    app.use(webpackDevMiddleware(compiler, {
-        publicPath: webpack_config.output.publicPath,
-        inline: true,
-        stats: 'minimal'
-    }));
-
-    app.use(webpackHotMiddleware(compiler));
+function loadFiles() {
     app.get('/fetch-aadhar-api',(req, res, next) => {
         console.log(req.query);
         const vision = require('node-cloud-vision-api');
@@ -139,6 +122,7 @@ if (isLocalDev) { //webpack for local development
         // send single request
         vision.annotate(request).then((response) => {
             var data = JSON.stringify(aadhar.analyzeText(response.responses));
+            console.log(data);
             var fs = require('fs');
             var beautify = require("json-beautify");
             /*fs.readFile(__dirname+'/aadhar.json', (err, respdata) => {
@@ -195,7 +179,7 @@ if (isLocalDev) { //webpack for local development
                     state : pdata.state,
                     address : pdata.address,
                     name : pdata.name,
-                }}, (err, data, body) => {
+                }}, (err, ldata, body) => {
                     if(err)
                         console.log(err);
                     else {
@@ -204,7 +188,6 @@ if (isLocalDev) { //webpack for local development
 
                     }
                     res.set('content-type', 'text/json');
-                    console.log(body_score);
                     res.send(JSON.stringify({
                         success:true,
                         html:data,
@@ -216,6 +199,7 @@ if (isLocalDev) { //webpack for local development
 
 
         }, (e) => {
+            res.set('content-type', 'text/json');
             res.send(JSON.stringify({
                 success:false
             }))
@@ -277,6 +261,25 @@ if (isLocalDev) { //webpack for local development
             res.end();
         });
     });
+}
+console.log(isLocalDev);
+var body_score = 0;
+if (isLocalDev) { //webpack for local development
+    const webpack = require('webpack'),
+        webpackDevMiddleware = require('webpack-dev-middleware'),
+        webpackHotMiddleware = require('webpack-hot-middleware'),
+        webpack_config = require('./webpack.config.js'),
+        compiler = webpack(webpack_config),
+        indexFile = path.resolve(webpack_config.output.path, 'index.hbs');
+
+        logger.log(webpack_config.output.path);
+    app.use(webpackDevMiddleware(compiler, {
+        publicPath: webpack_config.output.publicPath,
+        inline: true,
+        stats: 'minimal'
+    }));
+    app.use(webpackHotMiddleware(compiler));
+    loadFiles();
     app.get('*', (req, res, next) => {
         compiler
             .outputFileSystem
@@ -294,10 +297,8 @@ if (isLocalDev) { //webpack for local development
     //other envs
     let BUILD_DIR = path.resolve(__dirname, 'public/build');
     app.use(express.static(BUILD_DIR));
-    app.post('/file', upload.single('files'), (req, res, next) => {
-        console.log(req.body);
-    });
-    app.get('*', (req, res, next) => {
+    loadFiles();
+    app.get('/', (req, res, next) => {
         app.set('views', __dirname + '/public/build');
 
         var host = req.headers.host;
@@ -308,6 +309,7 @@ if (isLocalDev) { //webpack for local development
         res.render('index', context);
     });
 }
+
 
 // launch the server
 logger.log('debug', 'Getting server port and ip address information');

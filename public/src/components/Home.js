@@ -47,13 +47,13 @@ class Home extends Component {
            $('#appLoader').hide();
            $('.section1').show();
            $('html').removeClass('oh');
-        }, 1000);
+        }, 3000);
     }
 
     getApiData() {
         this.props.clearUserDetail();
         this.props.switchLoader();
-        axios.get('/get-lynk-addhar-api').then((res) => {
+        axios.get('/get-lynk-addhar-api?t='+new Date().getTime()).then((res) => {
             console.log(res.data);
             if(res.data.success) {
                 var body = JSON.parse(res.data.html);

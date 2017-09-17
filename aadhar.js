@@ -379,6 +379,7 @@ Handler.analyzeText = function(res)
     };
     var extend = require('util')._extend
     var o = extend({}, ogData);
+    console.log(extend(o,  data));
     return extend(o,  data);
 }
 Handler.validateDOB = function (dob)
