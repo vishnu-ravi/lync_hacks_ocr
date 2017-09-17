@@ -78,6 +78,9 @@ class Home extends Component {
                             data.total = total;
                             data.matched = matched;
                             this.props.addUserDetail(data);
+                            console.log($('.ocrWrp ul li:last-child').offset());
+                            console.log($('.ocrWrp ul li:last-child').offset().bottom);
+                            $('html,body').animate({scrollTop: $('.ocrWrp ul li:last-child').offset().top+300}, 'slow');
                             if(length == loaded) {
                                 this.props.switchLoader();
                             }
@@ -145,7 +148,7 @@ class Home extends Component {
                     <div className="box">
                         <div className="prograss"><i></i></div>
                         <div className="fileUpload">
-                            <h3>Optical Character <br/>Recognition</h3>
+                            <h3>Aadhar <span>Optical Character Recognition</span></h3>
                             {(this.props.home.loading) ? <a className="uploadBtn loaded">
                                 <span><strong>CLICK</strong><span>HERE</span></span>
                                 <em><small></small></em>
