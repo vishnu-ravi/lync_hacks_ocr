@@ -60,16 +60,25 @@ body {
      right: 10px;
      top: 10px;
      z-index: 5;
-     font-size: 19px;
+     font-size: 18px;
      color: #fff;
-     height: 2.6em;
-     line-height: 2.6em;
-     width: 2.6em;
-     border-radius: 48%;
+     height: 3em;
+     line-height: 1;
+     width: 3em;
+     padding-top: 0.45em;
+     border-radius: 50%;
      text-align: center;
-     background-color: rgba(255, 255, 255, 0.29);
-     span {
-         position: relative;
+     backface-visibility: hidden;
+     background-color: rgba(255, 255, 255, 0.2);
+     > span {
+        position: relative;
+        display: block;
+        font-weight: 300;
+        backface-visibility: hidden;
+       &:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.41);
+            padding-top: 2px;
+       }  
      }
      &::before {
          content: "";
