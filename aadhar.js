@@ -68,16 +68,19 @@ Handler.analyzeText = function(res)
 };
 
     try {
+        //Check for femal first
         var pattern = /female/i;
         var match = pattern.exec(text);
         if(match != null && match[0].toLowerCase() == 'female') {
             data['sex'] = 'Female';
         }
+        //Check for Male gender
         pattern = /male/i;
         match = pattern.exec(text);
         if(match != null && match[0].toLowerCase() == 'male') {
             data['sex'] = 'Male';
         }
+        //Check for DOB
         pattern = /DOB:\s*(\S+)/i;
         match = pattern.exec(text);
         if(match != null && typeof match[1] != 'undefined' && this.validateDOB(match[1])) {
