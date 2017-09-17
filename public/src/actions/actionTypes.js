@@ -1,0 +1,3 @@
+export const ADD_USER_DETAIL = 'ADD_USER_DETAIL';
+export const SWITCH_LOADER = 'SWITCH_LOADER';
+export const CLEAR_USER_DETAIL = 'CLEAR_USER_DETAIL';

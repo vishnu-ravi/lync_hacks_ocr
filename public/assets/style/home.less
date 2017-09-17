@@ -1,0 +1,275 @@
+/* Home Page styles */
+@import 'variables';
+.fileType {
+	width:100px;
+	height:100px;
+}
+.homePage {
+    overflow: hidden;
+    h2 {
+        color: #000;
+        font-size: 2em;
+        /*font-weight: 200;*/
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: auto;
+        margin-top: -1em;
+        text-align: center;
+    }
+    header {
+        opacity: 0;
+        transition: opacity 0.8s;
+    }
+    .popin {
+        display: none;
+    }
+    &.globeReady {
+        .popin {
+            animation: popin 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation-fill-mode: forwards;
+            transform: scale(0);
+            transform-origin: bottom left;
+            opacity: 0;
+            display: block;
+        }
+        header {
+            opacity: 1;
+        }
+    }
+    &.loaded {
+        h2 {
+            animation: fadingTitle 2s 3 ease-in-out;
+            animation-fill-mode: forwards;
+            opacity: 0;
+            transition: opacity 0.1s 6s;
+        }
+    }
+    &:before {
+        content: '';
+        background-image: url('@{imgPath}/img-travel-foot.png');
+        background-position: bottom center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        bottom:0;
+        height: 0;
+        width: 60%;
+        left: 20%;
+        padding-bottom: 25%;
+        opacity: 0.25;
+    }
+}
+.loadingLogo {
+    figure {
+        background-image: url('@{imgPath}/logo-etw.png');
+        background-position: 0 0;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        position: absolute;
+        font-size: 1em;
+        top: 50%;
+        height: 25em;
+        width: 24em;
+        left: 50%;
+        margin: -12.5em 0 0 -12em;
+        transition: transform 0.8s;
+        transform-origin: top center;
+        z-index: 22;
+    }
+    .globeReady & {
+        display: none;
+    }
+}
+
+/* Wave */
+.loadingOverlay {
+    background: #fff;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    .loaded & {
+        display: none;
+    }
+}
+.waveBlock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    z-index: 19;
+    >div {
+        background: #fff;
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        left: 0;
+        transition: transform 4s;
+        &:after {
+            content: '';
+            background-image: url('@{imgPath}/bg-wave.png');
+            background-position: top left;
+            background-size: 100% auto;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 0;
+            padding-bottom: 8.2%;
+        }
+    }
+    div:first-child {
+        top: 0;
+        margin-top: -2%;
+        &:after {
+            bottom: 0;
+            margin-bottom: -8%;
+        }
+    }
+    div + div {
+        bottom: 0;
+        margin-bottom: -2%;
+        &:after {
+            background-position: bottom left;
+            top: 0;
+            margin-top: -8%;
+        }
+    }
+    .waveIn-1 & {
+        div:first-child {
+            transform: translateY(-27%);
+        }
+        div + div {
+            transform: translateY(27%);
+        }
+    }
+    .waveIn-2 & {
+        div:first-child {
+            transform: translateY(-42%);
+        }
+        div + div {
+            transform: translateY(42%);
+        }
+    }
+    .waveIn-3 & {
+        div:first-child {
+            transform: translateY(-70%);
+        }
+        div + div {
+            transform: translateY(70%);
+        }
+    }
+    .waveIn-4 & {
+        div:first-child {
+            transform: translateY(-130%);
+        }
+        div + div {
+            transform: translateY(130%);
+        }
+    }
+    .globeReady & {
+        display: none;
+    }
+}
+
+.globeContainer {
+    cursor: -webkit-grab;
+    height: 100%;
+    overflow: hidden;
+    transform: scale(0);
+    .loaded & {
+        transition: transform 2s;
+    }
+    .waveIn-1 & {
+        transform: scale(0.25);
+    }
+    .waveIn-2 & {
+        transform: scale(0.55);
+    }
+    .waveIn-3 & {
+        transform: scale(0.8);
+    }
+    .waveIn-4 & {
+        transform: scale(1);
+    }
+    .globeReady & {
+        transform: scale(1);
+    }
+    canvas {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+.globeContainer:active, .globeContainer canvas:active {
+    cursor: -webkit-grabbing;
+}
+
+.loaded {
+    .loadingLogo figure {
+        transform: translateY(-15vh) scale(0.4);
+    }
+}
+.waveIn-4 {
+    .loadingLogo figure {
+        transform: translateY(-15vh) translateX(-40vw) scale(.4);
+        opacity: 0;
+        transition: all 3s;
+    }
+}
+
+@keyframes fadingTitle {
+    0%, 100% {
+        color: transparent;
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+    50%, 80% {
+        color: #000;
+        text-shadow: 0 0 0 rgba(0,0,0,0.5);
+    }
+}
+@keyframes popin {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+div.socialConnect {
+    position: absolute;
+    bottom: 2em;
+    right: 1.7em;
+    text-align: right;
+    small {
+        display: block;
+        color: #fff;
+        width: 11em;
+        font-size: 0.9em;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.2em;
+    }
+}
+.fbButton {
+    display: inline-block;
+    background-image: url('@{imgPath}/fb-button.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0 none;
+    cursor: pointer;
+    width: 10em;
+    height: 2.3em;
+    text-indent: -999em;
+    &:hover {
+        opacity: 0.9;
+    }
+}
